@@ -33,8 +33,13 @@
 
   hardware.cpu.amd.updateMicrocode =
     lib.mkDefault config.hardware.enableRedistributableFirmware;
+  # ─────────────────────────────────────────
+  #  DBus / dconf (needed for GTK + HM)
+  # ─────────────────────────────────────────
 
- # ─────────────────────────────────────────
+  services.dbus.enable = true;
+  programs.dconf.enable = true;
+  # ─────────────────────────────────────────
   #  Audio / PipeWire (low-latency)
   # ─────────────────────────────────────────
   #
