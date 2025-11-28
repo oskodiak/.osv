@@ -2,41 +2,54 @@
 #  LOGIN - GREETD + REGREET - OnyxOSV
 # ==========================================
 # New users:
-#   - This provides a simple Wayland login screen.
+#   - This provides a Wayland login screen.
 #   - You don't normally need to edit this.
 #
 # Advanced:
-#   - You can change the default session command or theme later.
+#   - You can change the default session command or VT later.
 
 { config, pkgs, lib, ... }:
 
 {
   # ─────────────────────────────────────────
-  #  Greeter user
+  #  Greeter user / group
   # ─────────────────────────────────────────
   #
   # New users:
-  #   - This is a minimal user account used only for the greeter.
-  #   - It does not log in to a normal session.
+  #   - This user runs the greeter only.
+  #   - It is not for normal login.
+
+  users.groups.greeter = { };
 
   users.users.greeter = {
     isNormalUser = false;
     description = "OnyxOSV greeter user";
+    group = "greeter";
+    home = "/var/lib/greetd";
+    createHome = true;
   };
+
+  # ─────────────────────────────────────────
+  #  Log directory for regreet (optional)
+  # ─────────────────────────────────────────
+  #
+  # New users:
+  #   - This prevents "permission denied" when regreet tries to log.
+  #
+  # Advanced:
+  #   - You can change this or drop it if you don't care about logs.
+
+  systemd.tmpfiles.rules = [
+    "d /var/log/regreet 0755 greeter greeter -"
+  ];
 
   # ─────────────────────────────────────────
   #  greetd + regreet
   # ─────────────────────────────────────────
-  #
-  # New users:
-  #   - This starts regreet on TTY at boot.
-  #
-  # Advanced:
-  #   - You can change the command to launch a different greeter
-  #     or a debugging shell if needed.
 
   services.greetd = {
     enable = true;
+    vt = 1;
 
     settings = {
       default_session = {
@@ -47,8 +60,9 @@
   };
 
   # ─────────────────────────────────────────
-  #  TTY / console basics
+  #  Disable TTY autologin
   # ─────────────────────────────────────────
 
   services.getty.autologinUser = lib.mkDefault null;
 }
+

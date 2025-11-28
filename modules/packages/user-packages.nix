@@ -13,20 +13,25 @@
 {
   environment.systemPackages = with pkgs; [
     # ── Core CLI ───────────────────────────
-    # fastfetch
-    # htop
-    # ripgrep
+    fastfetch
+    htop
+    ripgrep
     # git
-    # curl
+    curl
 
     # ── Development ───────────────────────-
-    # gcc
-    # pkg-config
+    gcc
+    pkg-config
 
     # ── Browsers ──────────────────────────
     # firefox
 
     # ── Media / Misc ──────────────────────
-    # vlc
+    vlc
+   
+    # ── GTK / Theming ─────────────────────
+    adwaita-icon-theme
+    gnome-themes-extra
+    gtk-engine-murrine
   ];
 }
