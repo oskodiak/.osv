@@ -20,7 +20,7 @@
   services.printing.enable = true;
 
 # System Packages
-  environment.systemPackages = with pkgs; {
+  environment.systemPackages = with pkgs; [
     swaylock
   ];
 }
