@@ -39,6 +39,10 @@
 
   services.dbus.enable = true;
   programs.dconf.enable = true;
+ 
+  # Swaylock PAM
+  security.pam.services.swaylock = {};
+
   # ─────────────────────────────────────────
   #  Audio / PipeWire (low-latency)
   # ─────────────────────────────────────────

@@ -13,6 +13,14 @@
 {
   # Example (commented for now):
 
-  # programs.steam.enable = true;
-  # services.printing.enable = true;
+# Programs
+  programs.steam.enable = true;
+
+# Services
+  services.printing.enable = true;
+
+# System Packages
+  environment.systemPackages = with pkgs; {
+    swaylock
+  ];
 }
