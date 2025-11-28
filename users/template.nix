@@ -23,7 +23,27 @@
     # New users: you usually don't need to change this.
     # Advanced: add groups if you know exactly why you need them.
   };
+  # ─────────────────────────────────────────
+  #  Boot loader (UEFI only, no GRUB)
+  # ─────────────────────────────────────────
+  #
+  # New users:
+  #   - OnyxOSV uses systemd-boot on UEFI systems only.
+  #   - Legacy BIOS boot and GRUB are not supported.
+  #
+  # Advanced:
+  #   - You can tweak systemd-boot options here if needed.
 
+  boot.loader = {
+    systemd-boot.enable = lib.mkDefault true;
+    efi.canTouchEfiVariables = lib.mkDefault true;
+
+    grub = {
+      enable = lib.mkForce false;
+      device = lib.mkForce "nodev";
+      mirroredBoots = lib.mkForce [ ];
+    };
+  };
   # ─────────────────────────────────────────
   #  Imports
   # ─────────────────────────────────────────
@@ -58,7 +78,21 @@
     # Home-Manager (wired in later):
     # ../home/yourname.nix
   ];
+  # ─────────────────────────────────────────
+  #  Nixpkgs configuration
+  # ─────────────────────────────────────────
+  #
+  # New users:
+  #   - OSV enables firmware that may be non-free.
+  #   - This must be true for some hardware to work correctly.
+  #
+  # Advanced:
+  #   - Set to false if you want a strictly-free system and are
+  #     willing to lose some hardware support.
 
+  nixpkgs = {
+    config.allowUnfree = true;
+  };
   # ─────────────────────────────────────────
   #  Base system packages (optional)
   # ─────────────────────────────────────────
@@ -71,10 +105,22 @@
     ghostty
     git
   ];
-
   # ─────────────────────────────────────────
   #  Networking
   # ─────────────────────────────────────────
 
   networking.networkmanager.enable = true;
+  # ─────────────────────────────────────────
+  #  NixOS state version
+  # ─────────────────────────────────────────
+  #
+  # New users:
+  #   - Set this once when you first install.
+  #   - Do NOT change it on an existing system.
+  #
+  # Advanced:
+  #   - Bump this only when you're ready to migrate defaults
+  #     to a newer NixOS release and know what that implies.
+
+  system.stateVersion = "25.05";
 }
