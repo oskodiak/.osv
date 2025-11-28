@@ -47,9 +47,6 @@
   #   - Tweak the clock.rate / quantum values if you know what
   #     you're aiming for (e.g. pro audio workloads).
 
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-
   services.pipewire = {
     enable = true;
 
