@@ -25,7 +25,8 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-
+            # Tells Home-Manager to backup dotfiles with bak file extension instead of failing
+            backupFileExtension = "bak";
             home-manager.users.ospeach = import ./home/ospeach.nix;
           }
         ];
